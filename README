@@ -1,0 +1,49 @@
+/*
+ **Oncioiu Anamaria Raluca, 313 CA, Tema 1, Data: 14.03.2011
+ */
+ 	
+			
+	## Arhiva contine un fisier README cu detalii despre implementarea temei, fisierul sursa si un Makefile pentru compilarea temei.
+ 
+		
+		Pentru listarea fisierelor, s-au luat in considerare urmatoarele cazuri:
+
+	-> daca nu este dat alt parametru, fisierele, excluzand cele ascunse, se memoreaza intr-un vector de pointeri la structuri dirent si apoi 
+	se sorteaza lexicografic.
+	
+	
+	-> daca exista cel putin un parametru, iar -R a fost dat, atunci se apeleaza o functie recursiva de printare a tuturor fisierelor.
+		
+		Este apelata functia 'walk_dir', care returneaza un vector de pointeri la structuri dirent pentru toate fisierele din directorul
+	curent, adica inclusiv cele ascunse. Daca au fost dati si alti parametri (-s/-t, -r), atunci fisierele sunt gata sortate dupa criteriu. 
+	Daca nu, fisierele sunt sortate lexicografic.
+		
+		Apoi se parcurg fisierele sortate si sunt afisate una cate una. Daca fisierul printat a fost un director, atunci, se compune 
+	path-ul pentru a intra in director si se creste un contor de adancime, respectiv de nivel. 
+
+		Cel pentru adancime va fi folosit pentru printarea fisierelor cu tab-uri, pentru a sti de care director apartin. Contorul de nivel 
+	va indica nivelul pe care ne aflam, asa incat atunci cand exista mai multe directoare si s-a revenit dintr-unul din ele, sa se refaca 
+	path-ul cu un alt director. 
+	
+		Pentru fiecare subdirector se apeleaza functia 'walk_dir', pentru a parcurge fisierele. Pentru a reveni dintr-un director, se 
+	apeleaza functia 'chdir' si se scade adancimea, respectiv nivelul arborelui de directoare. 
+
+
+	-> daca exista cel putin un parametru, dar -R nu a fost specificat, fisierele, inclusiv cele ascunse, se memoreaza intr-un vector si in 
+	functie de parametrii dati, se sorteaza. Fara alti parametri de sortare, fisierele vor fi sortate lexicografic. 
+	
+		Pentru ultimele doua cazuri, se analizeaza daca a fost dat parametrul -a. Daca nu a fost specificat, la afisare, nu sunt listate 
+fisierele ascunse.
+
+		Pentru listarea unui fisier oarecare, a fost implementata functia print_fis, care ia informatiile despre un fisier si le printeaza
+conform cerintelor din tema. 
+
+		S-a folosit sortarea de tip mergesort, pentru ca un quicksort ar fi fost ineficient, atunci cand fisierele ar fi fost gata sortate.
+Functia de sortare primeste numarul de elemente din vector, vectorul si un pointer la o functie numit 'compare'.
+
+		S-au luat in calcul functii de sortare: lexicografica, in functie de dimensiunea fisierelor sau dupa data, crescator sau descrescator. 
+		
+		Pentru identificarea parametrilor, s-a creat un vector de int-uri. Daca un anumit parametru a fost dat, el va fi indicat in vector 
+prin numarul de aparitii. Daca un parametru a fost dat de mai multe ori, atunci se iese din program. De asemenea, daca un parametru a fost specificat
+gresit, se iese din program. Conform enuntului temei, daca au fost dati -s si -t simultan, se iese din program.
+
